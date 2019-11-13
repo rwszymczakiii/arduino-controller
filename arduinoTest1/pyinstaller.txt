@@ -1,1 +1,2 @@
 pyinstaller -w --onefile <filename.py>
+pyinstaller -w --onefile arduinoTest1-autoPort.py
