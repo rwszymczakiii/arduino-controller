@@ -13,6 +13,7 @@ class App:
     def __init__(self, master):
         frame = tk.Frame(master)
         frame.pack()
+        self.bytes_to_read = 100
         
         # COM PORT 
         tk.Label(frame, text='COM PORT: ').grid(row=0, column=0)
@@ -29,6 +30,10 @@ class App:
         self.off_button = tk.Button(frame, text='OFF', command=self.led_off)
         self.off_button.grid(row=3, column=1)
 
+        # LOG
+        self.status_report = tk.StringVar()
+        tk.Label(frame, textvariable=self.status_report).grid(row=4, columnspan=2)
+
     def set_com(self):
         self.com_port = self.com_var.get()
         self.arduinoData = serial.Serial(f'{self.com_port}', 9600, timeout=0.5)
@@ -37,13 +42,17 @@ class App:
 
     def led_on(self):
         self.arduinoData.write(b'1')
-        print(self.arduinoData.readline().decode('ascii'))
+        message = self.arduinoData.read(self.bytes_to_read)
+        message = message.decode('utf-8')
+        self.status_report.set(message[1:]) 
     def led_off(self):
         self.arduinoData.write(b'0')
-        print(self.arduinoData.readline().decode('ascii'))
+        message = self.arduinoData.read(self.bytes_to_read)
+        message = message.decode('utf-8')
+        self.status_report.set(message[1:]) 
  
 root = tk.Tk()
-root.geometry('300x100')
+root.geometry('300x150')
 root.wm_title('Arduino Controller')  
 app = App(root)
 root.mainloop()
