@@ -7,7 +7,8 @@ Created on Fri Nov  1 14:01:19 2019
 
 import serial
 import tkinter as tk
-from time import sleep
+import time
+import csv
 
 class App:
     def __init__(self, master):
@@ -16,7 +17,7 @@ class App:
         self.bytes_to_read = 100
 
         self.arduinoData = serial.Serial('/dev/cu.usbmodem142101', 9600, timeout=1)
-        sleep(0.5)
+        time.sleep(0.5)
         
         # LED ON/OFF
         self.on_button = tk.Button(frame, text='ON ', command=self.led_on)
@@ -29,15 +30,14 @@ class App:
         tk.Label(frame, textvariable=self.status_report).grid(row=4, columnspan=2)
 
     def led_on(self):
-        sleep(0.2)
+        time.sleep(0.2)
         self.arduinoData.write(b'1')
-        message = self.arduinoData.read(self.bytes_to_read)
-        message = message.decode('utf-8')
-        self.status_report.set(message[1:]) 
+        if self.arduinoData.read(3).decode('utf-8')[1:] == 'a': 
+            self.status_report.set('pump1')
+
     def led_off(self):
-        sleep(0.2)
         self.arduinoData.write(b'0')
-        self.status_report.set('off') 
+        self.status_report.set('off')
  
 root = tk.Tk()
 root.geometry('300x150')
