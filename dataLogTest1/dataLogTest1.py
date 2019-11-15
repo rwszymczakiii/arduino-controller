@@ -1,6 +1,8 @@
-import serial 
-import time
+import serial
 
-arduinoData = serial.Serial('/dev/cu.usbmodem142101', 9600, timeout=1)
-time.sleep(0.5)
-arduinoData.write(b'1')
+port = '/dev/cu.usbmodem142101'
+ser = serial.Serial(port,9600)
+
+while 1:
+    data = ser.read().decode('utf-8')
+    print(data)

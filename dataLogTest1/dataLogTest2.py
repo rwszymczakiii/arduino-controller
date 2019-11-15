@@ -9,12 +9,12 @@ import serial
 import tkinter as tk
 import time
 import csv
+import threading
 
 class App:
     def __init__(self, master):
         frame = tk.Frame(master)
         frame.pack()
-        self.bytes_to_read = 100
 
         self.arduinoData = serial.Serial('/dev/cu.usbmodem142101', 9600, timeout=1)
         time.sleep(0.5)
@@ -27,17 +27,30 @@ class App:
 
         # LOG
         self.status_report = tk.StringVar()
-        tk.Label(frame, textvariable=self.status_report).grid(row=4, columnspan=2)
+        tk.Label(frame, textvariable=self.status_report).grid(row=4, columnspan=2)     
 
     def led_on(self):
+        self.status_report.set('on')
         time.sleep(0.2)
         self.arduinoData.write(b'1')
-        if self.arduinoData.read(3).decode('utf-8')[1:] == 'a': 
-            self.status_report.set('pump1')
+        def print_serial():
+            data_list = []
+            while 1:
+                try:
+                    data = self.arduinoData.read().decode('utf-8')
+                    data_list.append(data)
+                    print(data_list)
+                except:
+                    with open("dLT2_data.csv",'w') as f:
+                        writer = csv.writer(f,delimiter=",")
+                        writer.writerow(data) 
+        print_serial = threading.Thread(target=print_serial)
+        print_serial.start()
 
     def led_off(self):
-        self.arduinoData.write(b'0')
         self.status_report.set('off')
+        self.arduinoData.close()
+        self.arduinoData.open()
  
 root = tk.Tk()
 root.geometry('300x150')

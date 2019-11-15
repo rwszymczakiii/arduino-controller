@@ -13,7 +13,7 @@ class App:
     def __init__(self, master):
         frame = tk.Frame(master)
         frame.pack()
-        self.bytes_to_read = 100
+        self.bytes_to_read = 1
 
         self.arduinoData = serial.Serial('/dev/cu.usbmodem142101', 9600, timeout=1)
         sleep(0.5)
@@ -29,15 +29,14 @@ class App:
         tk.Label(frame, textvariable=self.status_report).grid(row=4, columnspan=2)
 
     def led_on(self):
-        sleep(0.2)
+        sleep(0.3)
         self.arduinoData.write(b'1')
-        message = self.arduinoData.read(self.bytes_to_read)
-        message = message.decode('utf-8')
-        self.status_report.set(message[1:]) 
+        message = self.arduinoData.read(self.bytes_to_read).decode('utf-8')
+        self.status_report.set(message) 
     def led_off(self):
-        sleep(0.2)
-        self.arduinoData.write(b'0')
         self.status_report.set('off') 
+        self.arduinoData.close()
+        self.arduinoData.open()
  
 root = tk.Tk()
 root.geometry('300x150')

@@ -13,7 +13,6 @@ class App:
     def __init__(self, master):
         frame = tk.Frame(master)
         frame.pack()
-        self.bytes_to_read = 100
         
         # COM PORT 
         tk.Label(frame, text='COM PORT: ').grid(row=0, column=0)
@@ -42,14 +41,13 @@ class App:
 
     def led_on(self):
         self.arduinoData.write(b'1')
-        message = self.arduinoData.read(self.bytes_to_read)
+        message = self.arduinoData.read(50)
         message = message.decode('utf-8')
         self.status_report.set(message[1:]) 
     def led_off(self):
-        self.arduinoData.write(b'0')
-        message = self.arduinoData.read(self.bytes_to_read)
-        message = message.decode('utf-8')
-        self.status_report.set(message[1:]) 
+        self.status_report.set('off') 
+        self.arduinoData.close()
+        self.arduinoData.open()
  
 root = tk.Tk()
 root.geometry('300x150')
