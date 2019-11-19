@@ -7,9 +7,10 @@ Created on Fri Nov  1 14:01:19 2019
 
 import serial
 import tkinter as tk
-import time
-import csv
+from time import sleep
 import threading
+import data_handler as dh
+
 
 class App:
     def __init__(self, master):
@@ -17,7 +18,7 @@ class App:
         frame.pack()
 
         self.arduinoData = serial.Serial('/dev/cu.usbmodem142101', 9600, timeout=1)
-        time.sleep(0.5)
+        sleep(0.5)
         
         # LED ON/OFF
         self.on_button = tk.Button(frame, text='ON ', command=self.led_on)
@@ -31,7 +32,7 @@ class App:
 
     def led_on(self):
         self.status_report.set('on')
-        time.sleep(0.2)
+        sleep(0.2)
         self.arduinoData.write(b'1')
         def print_serial():
             data_list = []
@@ -40,10 +41,10 @@ class App:
                     data = self.arduinoData.read().decode('utf-8')
                     data_list.append(data)
                     print(data_list)
+                    return data_list
                 except:
-                    with open("dLT2_data.csv",'w') as f:
-                        writer = csv.writer(f,delimiter=",")
-                        writer.writerow(data) 
+                    converted_data = dh.convert_data(data_list)
+                    dh.data_to_csv(converted_data)
         print_serial = threading.Thread(target=print_serial)
         print_serial.start()
 

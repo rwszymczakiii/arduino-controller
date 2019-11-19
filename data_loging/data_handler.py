@@ -48,7 +48,7 @@ def data_to_csv(data):
   with open("data_report.csv",'w') as f:
     writer = csv.writer(f,delimiter=" ")
     for i in data: 
-      writer.writerow(i) 
+      writer.writerow([i]) 
 
 data_to_csv(converted_data)
 
