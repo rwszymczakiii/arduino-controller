@@ -1,20 +1,36 @@
 import csv
 from datetime import datetime
 
-sample_data = ['','a','','','','b', '','','c','','','','d', '','','e','a','','','','b', '','','c','','','','d', '','','e']
+sample_data = ['','a','a','a','a','a','a','','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','d','d','','','e','e','e','e','e','e','','','a','a','a','a','a','a','','','','b','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','','','e','e','e','e','e','e','','']
 
 def convert_data(data):
   converted_data = []
   total_puff_count = 0
   cycle_count = 0
+
+  while ('' in data):
+    data.remove('')
+
+  print(data)
+
+  for i in data: 
+    while (i == data[data.index(i)+1]):
+      data.remove(i)
+
+  print(data)
+
   a = f'Pump # : 1    at {datetime.now()}'
   b = f'Pump # : 2    at {datetime.now()}'
   c = f'Pump # : 3    at {datetime.now()}'
   d = f'Pump # : 4    at {datetime.now()}'
   e = f'Pump # : 5    at {datetime.now()}'
+  # f = f'Pump # : 6    at {datetime.now()}'
+  # g = f'Pump # : 7    at {datetime.now()}'
+  # h = f'Pump # : 8    at {datetime.now()}'
+  # i = f'Pump # : 9    at {datetime.now()}'
+  # j = f'Pump # : 10    at {datetime.now()}'
 
-  while ('' in data):
-    data.remove('')
+
 
   for i in data: 
     if i == 'a':
@@ -42,15 +58,15 @@ def convert_data(data):
   return converted_data
 
 converted_data = convert_data(sample_data)
-print(converted_data)
 
 def data_to_csv(data):
-  with open("data_report.csv",'w') as f:
+  with open("./data_loging/data_report.csv",'w') as f:
     writer = csv.writer(f,delimiter=" ")
     for i in data: 
       writer.writerow([i]) 
 
 data_to_csv(converted_data)
+
 
 
 
