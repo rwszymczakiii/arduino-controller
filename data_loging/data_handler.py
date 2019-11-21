@@ -11,13 +11,11 @@ def convert_data(data):
   while ('' in data):
     data.remove('')
 
-  print(data)
-
-  for i in data: 
-    while (i == data[data.index(i)+1]):
-      data.remove(i)
-
-  print(data)
+  # for i in data: 
+  #   # print(i)
+  #   while (i == data[data.index(i)+1]):
+  #     # print(i)
+  #     # data.remove(i)
 
   a = f'Pump # : 1    at {datetime.now()}'
   b = f'Pump # : 2    at {datetime.now()}'
@@ -68,5 +66,11 @@ def data_to_csv(data):
 data_to_csv(converted_data)
 
 
+# data = ['a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c']
+# print(len(data))
+# print(data[data.index('b')+10])
 
-
+# d = ord('d')
+# c = ord('c')
+# a = ord('a')
+# print(a)
