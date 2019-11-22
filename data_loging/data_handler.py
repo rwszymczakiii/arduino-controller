@@ -12,10 +12,23 @@ def convert_data(data):
     data.remove('')
 
   # for i in data: 
-  #   # print(i)
-  #   while (i == data[data.index(i)+1]):
-  #     # print(i)
-  #     # data.remove(i)
+  #   if i == data[data.index(i)+1]:
+  #     data.remove(i)
+
+  # print(data)
+
+  # def remove_duplicates(n):
+  #   while (data[n] == data[n+1]):
+  #     data.remove(data[n])
+  #   return data
+
+  # for i in data:
+  #   remove_duplicates(i)
+  
+  # for i in data: 
+  #   if i == data[data.index(i) + 1]:
+  #     remove_duplicates(i)
+  #   elif i != data
 
   a = f'Pump # : 1    at {datetime.now()}'
   b = f'Pump # : 2    at {datetime.now()}'
@@ -68,9 +81,27 @@ data_to_csv(converted_data)
 
 # data = ['a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c']
 # print(len(data))
-# print(data[data.index('b')+10])
+# print(data[data.index('b')])
 
 # d = ord('d')
 # c = ord('c')
 # a = ord('a')
 # print(a)
+
+# data = ['a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c']
+# ord_data = []
+# for i in data: 
+#   ord_data.append(ord(i))
+# print(ord_data)
+
+data = ['a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c']
+ord_data = []
+for i in data: 
+  ord_data.append(ord(i))
+counter = 0
+for i in ord_data:
+  if i > ord_data[ord_data.index(i)+1]:
+    counter += 1
+new_data = []
+# puting characters from data into a set (to removw duplicates) and appending that set into a new list n number of times where n is counter.value after the previoius for loop
+
