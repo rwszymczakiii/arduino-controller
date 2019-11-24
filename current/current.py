@@ -19,33 +19,43 @@ class App:
         self.com_response = tk.StringVar()
         tk.Label(frame, textvariable=self.com_response).grid(row=2, columnspan=2)
         # VARS INPUT
-        tk.Label(frame, text='CYCLES: ').grid(row=2, column=0)
+        tk.Label(frame, text='CYCLES:         ').grid(row=3, column=0)
         self.cycles_var = tk.StringVar()
-        
+        tk.Entry(frame, textvariable=self.cycles_var).grid(row=3, column=1)
+        tk.Label(frame, text='PUMPS:          ').grid(row=4, column=0)
+        self.pumps_var = tk.StringVar()
+        tk.Entry(frame, textvariable=self.pumps_var).grid(row=4, column=1)
+        tk.Label(frame, text='PUFF TIME (s): ').grid(row=5, column=0)
+        self.time_var = tk.StringVar()
+        tk.Entry(frame, textvariable=self.time_var).grid(row=5, column=1)
         # START/STOP
         self.on_button = tk.Button(frame, text='ON ', command=self.led_on)
-        self.on_button.grid(row=3, column=0)
+        self.on_button.grid(row=6, column=0)
         self.off_button = tk.Button(frame, text='OFF', command=self.led_off)
-        self.off_button.grid(row=3, column=1)
+        self.off_button.grid(row=6, column=1)
         # STATUS
         self.status_report = tk.StringVar()
-        tk.Label(frame, textvariable=self.status_report).grid(row=4, columnspan=2)
+        tk.Label(frame, textvariable=self.status_report).grid(row=7, columnspan=2)
 
     # SET COM PORT
     def set_com(self):
         self.com_response.set('connecting...')
         self.com_port = self.com_var.get()
-        self.arduinoData = serial.Serial(f'{self.com_port}', 9600)
+        self.arduinoData = serial.Serial(f'{self.com_port}', 9600, timeout=1)
         sleep(0.500)
         self.com_response.set('COM PORT has been set')
     # START CYCLE
     def led_on(self):
-        self.arduinoData = serial.Serial('/dev/cu.usbmodem141101', 9600, timeout=1)
+        self.cycles_num = self.cycles_var.get()
+        self.pumps_num = self.pumps_var.get()
+        self.time_num = self.time_var.get()
+        self.start_code = self.cycles_num + self.pumps_num + self.time_num + "000"
+        # self.arduinoData = serial.Serial('/dev/cu.usbmodem141101', 9600, timeout=1)
         self.status_report.set('ON')
         self.reading = True
         self.arduinoData.readline()
         self.arduinoData.readline()
-        self.arduinoData.write("85100$".encode())
+        self.arduinoData.write(f"{self.start_code}$".encode())
         def print_serial():
             data_list = []
             while self.reading:
@@ -67,7 +77,7 @@ class App:
         self.arduinoData.open()
  
 root = tk.Tk()
-root.geometry('300x150')
+root.geometry('400x250')
 root.wm_title('Arduino Controller')  
 app = App(root)
 root.mainloop()
