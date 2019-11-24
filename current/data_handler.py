@@ -2,7 +2,7 @@ import csv
 from datetime import datetime
 from itertools import zip_longest
 
-# sample_data = ['','a','a','a','a','a','a','','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','d','d','','','e','','','a','a','a','a','a','a','','','','b','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','','','e','','','','a','a','a','a','a','a','','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','d','d','','','e','','','a','a','a','a','a','a','','','','b','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','','','e','','']
+sample_data = ['','a','a','a','a','a','a','','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','d','d','','','e','','','a','a','a','a','a','a','','','','b','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','','','e','','','','a','a','a','a','a','a','','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','d','d','','','e','','','a','a','a','a','a','a','','','','b','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','','','e','','']
 
 def convert_data(data):
   converted_data = []
@@ -81,10 +81,13 @@ def convert_data(data):
 
   return converted_data
 
-# convert_data(sample_data)
+convert_data(sample_data)
+converted_data = convert_data(sample_data)
 
 def data_to_csv(data):
-  with open("./data_loging/data_report.csv",'w') as f:
+  with open("./current/data_report.csv",'w') as f:
     writer = csv.writer(f,delimiter=" ")
     for i in data: 
       writer.writerow([i]) 
+
+data_to_csv(converted_data)
