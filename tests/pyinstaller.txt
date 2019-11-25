@@ -1,2 +1,14 @@
 pyinstaller -w --onefile <filename.py>
-pyinstaller -w --onefile arduinoTest1-autoPort.py
+pyinstaller -w --onefile current.py
+
+user/local/bin/PyInstaller 
+
+/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages pyinstaller
+
+sudo /Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages pyinstaller -w --onefile current.py pyinstaller -w --onefile current.py
+
+sudo /Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages pyinstaller -w --onefile /Users/robbie/Documents/arduino-controller/current/current.py
+
+sudo /Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages pyinstaller -w --onefile /Users/robbie/Documents/arduino-controller/current/current.py
+
+python3 -m nuitka --standalone /Users/robbie/Documents/arduino-controller/current/current.py
