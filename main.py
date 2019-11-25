@@ -1,8 +1,14 @@
 import serial
 import tkinter as tk
+from tkinter import messagebox
 from time import sleep
 import threading
-import data_handler as dh
+try: 
+    import data_handler as dh
+except PermissionError:
+    root = tk.Tk()
+    root.withdraw()
+    messagebox.showinfo('Permission Error', 'cannot write data log without appropriate permissions')
 
 class App:
     def __init__(self, master):

@@ -85,9 +85,9 @@ convert_data(sample_data)
 converted_data = convert_data(sample_data)
 
 def data_to_csv(data):
-  with open("./current/data_report.csv",'w') as f:
+  with open("./data_report.csv",'w') as f:
     writer = csv.writer(f,delimiter=" ")
     for i in data: 
-      writer.writerow([i]) 
+      writer.writerow([i])
 
 data_to_csv(converted_data)
