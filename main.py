@@ -2,6 +2,7 @@ import serial
 import tkinter as tk
 from tkinter import messagebox
 from time import sleep
+from datetime import datetime
 import threading
 try: 
     import data_handler as dh
@@ -47,11 +48,14 @@ class App:
     def set_com(self):
         self.com_response.set('connecting...')
         self.com_port = self.com_var.get()
+        # self.arduinoData = serial.Serial('/dev/cu.usbmodem141101', 9600, timeout=1)
         self.arduinoData = serial.Serial(f'{self.com_port}', 9600, timeout=1)
         sleep(0.500)
         self.com_response.set('COM PORT has been set')
     # START CYCLE
     def led_on(self):
+        if self.arduinoData.isOpen() == False:
+            self.arduinoData.open()
         self.cycles_num = self.cycles_var.get()
         self.pumps_num = self.pumps_var.get()
         self.time_num = self.time_var.get()
@@ -61,35 +65,85 @@ class App:
               return code
         self.cycles_num = convert_code(self.cycles_num)
         self.pumps_num = convert_code(self.pumps_num)
+        self.time_num = convert_code(self.time_num)
         if int(self.pumps_num) > 10:
             self.status_report.set('a maximum of 10 pumps are available')
             self.cycles_num = "000"
         else:
             self.status_report.set('ON')
-        self.time_num = convert_code(self.time_num)
         self.start_code = self.cycles_num + self.pumps_num + self.time_num + "000"
-        print(f"{self.start_code}")
-        # self.arduinoData = serial.Serial('/dev/cu.usbmodem141101', 9600, timeout=1)
+        # print(f"{self.start_code}")
         self.reading = True
         self.arduinoData.readline()
         self.arduinoData.readline()
         self.arduinoData.write(f"{self.start_code}$".encode())
+        self.start_time = datetime.now()
         def print_serial():
             data_list = []
-            while self.reading:
+            while self.reading == True:
                 try:
                     data = self.arduinoData.read().decode('utf-8')
-                    data_list.append(data)
-                    # print(data_list)
+                    if data == 'a':
+                        self.status_report.set("Pump 1")
+                        data_list.append(data)
+                        continue
+                    elif data == 'b':
+                        self.status_report.set("Pump 2")
+                        data_list.append(data)
+                        continue
+                    elif data == 'c':
+                        self.status_report.set("Pump 3")
+                        data_list.append(data)
+                        continue
+                    elif data == 'd':
+                        self.status_report.set("Pump 4")
+                        data_list.append(data)
+                        continue
+                    elif data == 'e':
+                        self.status_report.set("Pump 5")
+                        data_list.append(data)
+                        continue
+                    elif data == 'f':
+                        self.status_report.set("Pump 6")
+                        data_list.append(data)
+                        continue
+                    elif data == 'g':
+                        self.status_report.set("Pump 7")
+                        data_list.append(data)
+                        continue
+                    elif data == 'h':
+                        self.status_report.set("Pump 8")
+                        data_list.append(data)
+                        continue
+                    elif data == 'i':
+                        self.status_report.set("Pump 9")
+                        data_list.append(data)
+                        continue
+                    elif data == 'j':
+                        self.status_report.set("Pump 10")
+                        data_list.append(data)
+                        continue
                     converted_data = dh.convert_data(data_list)
                     dh.data_to_csv(converted_data)
                 except:
                     break
+        if self.arduinoData.isOpen() == False:
+            self.reading = False
+            self.status_report.set('serial port closed unexpectedly')
         print_serial = threading.Thread(target=print_serial)
         print_serial.start()
+        self.max_time = int(self.cycles_num)*int(self.pumps_num)*int(self.time_num)+2
+        def stop_data():
+            self.arduinoData.close()
+            self.arduinoData.open()
+            self.status_report.set("Run Complete")
+            self.reading = False
+        self.t = threading.Timer(self.max_time, stop_data)
+        self.t.start()
     # STOP CYCLE
     def led_off(self):
         self.reading = False
+        self.t.cancel()
         self.status_report.set('OFF')
         if self.arduinoData.isOpen() == True:
             self.arduinoData.close()
