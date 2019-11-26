@@ -44,9 +44,9 @@ void loop() {
 
     if (rec=='$'){
       startCode.remove(startCode.length()-1,1);
-      MaxCycle = startCode.substring(0,1).toInt();
-      PumpsUsed = startCode.substring(2,1).toInt();
-      PuffDuration = startCode.substring(2,startCode.length()).toInt();
+      MaxCycle = startCode.substring(0,3).toInt();
+      PumpsUsed = startCode.substring(3,6).toInt();
+      PuffDuration = startCode.substring(6,startCode.length()).toInt();
       MaxTime = PumpsUsed * PuffDuration;
       CurrentPump = 0;
       CurrentPin = 1;
@@ -161,6 +161,8 @@ void loop() {
           timeElapsed = 0;
         }
       }
+      Serial.end();
     }
   }
 }
+  
