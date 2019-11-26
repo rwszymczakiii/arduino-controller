@@ -55,9 +55,21 @@ class App:
         self.cycles_num = self.cycles_var.get()
         self.pumps_num = self.pumps_var.get()
         self.time_num = self.time_var.get()
+        def convert_code(code):
+              while len(code) < 3:	
+                code = '0' + code
+              return code
+        self.cycles_num = convert_code(self.cycles_num)
+        self.pumps_num = convert_code(self.pumps_num)
+        if int(self.pumps_num) > 10:
+            self.status_report.set('a maximum of 10 pumps are available')
+            self.cycles_num = "000"
+        else:
+            self.status_report.set('ON')
+        self.time_num = convert_code(self.time_num)
         self.start_code = self.cycles_num + self.pumps_num + self.time_num + "000"
+        print(f"{self.start_code}")
         # self.arduinoData = serial.Serial('/dev/cu.usbmodem141101', 9600, timeout=1)
-        self.status_report.set('ON')
         self.reading = True
         self.arduinoData.readline()
         self.arduinoData.readline()
@@ -79,9 +91,10 @@ class App:
     def led_off(self):
         self.reading = False
         self.status_report.set('OFF')
-        self.arduinoData.close()
-        self.arduinoData.open()
- 
+        if self.arduinoData.isOpen() == True:
+            self.arduinoData.close()
+            self.arduinoData.open()
+   
 root = tk.Tk()
 root.geometry('400x250')
 root.wm_title('Arduino Controller')  
