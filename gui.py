@@ -6,12 +6,13 @@ from datetime import datetime
 import threading
 import csv
 import os
-try: 
-    import data_handler as dh
-except PermissionError:
-    root = tk.Tk()
-    root.withdraw()
-    messagebox.showinfo('Permission Error', 'cannot write data log without appropriate permissions')
+import sys
+
+def data_to_csv(data):
+  with open("./data_report.csv",'a') as file:
+    writer = csv.writer(file,delimiter=",")
+    for i in data: 
+      writer.writerow([i])
 
 class App:
     def __init__(self, master):
@@ -80,7 +81,6 @@ class App:
         else:
             self.status_report.set('ON')
         self.start_code = self.cycles_num + self.pumps_num + self.time_num + "000"
-        # print(f"{self.start_code}")
         self.reading = True
         self.arduinoData.readline()
         self.arduinoData.readline()
@@ -88,61 +88,76 @@ class App:
 
         #BEGIN LOG
         self.start_time = datetime.now()
-        with open("./data_report.csv",'w') as f:
-            writer = csv.writer(f,delimiter=" ")
-            writer.writerow([f"Run Started at: {self.start_time}"])
+        try: 
+            with open("./data_report.csv",'w') as f:
+                writer = csv.writer(f,delimiter=",")
+                writer.writerow([f"Run Started at: {self.start_time}"])
+        except PermissionError:
+            self.reading = False
+            self.arduinoData.close()
+            self.arduinoData.open()
+            root = tk.Tk()
+            root.withdraw()
+            messagebox.showinfo('Permission Error', 'cannot write data log without appropriate permissions')
 
         # COLLECT DATA
-        self.data_list = []
+        self.cycle_count = 0
+        # self.data_list = []
         def print_serial():
             while self.reading == True:
                 try:
                     data = self.arduinoData.read().decode('utf-8')
-                    # current = self.status_report.get()
                     if data == 'a':
-                        self.status_report.set("Pump 1")
-                        self.data_list.append(data)
+                        self.cycle_count += 1
+                        self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 1")
+                        data_to_csv(f"--- Cycle # : {self.cycle_count} at {datetime.now()}" )
+                        data_to_csv(f"Pump 1 at {datetime.now()}")
                         continue
                     elif data == 'b':
-                        self.status_report.set("Pump 2")
-                        self.data_list.append(data)
+                        self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 2")
+                        data_to_csv(f"Pump 2 at {datetime.now()}")
                         continue
                     elif data == 'c':
-                        self.status_report.set("Pump 3")
-                        self.data_list.append(data)
+                        self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 3")
+                        data_to_csv(f"Pump 3 at {datetime.now()}")
                         continue
                     elif data == 'd':
-                        self.status_report.set("Pump 4")
-                        self.data_list.append(data)
+                        self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 4")
+                        data_to_csv(f"Pump 4 at {datetime.now()}")
                         continue
                     elif data == 'e':
-                        self.status_report.set("Pump 5")
-                        self.data_list.append(data)
+                        self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 5")
+                        data_to_csv(f"Pump 5 at {datetime.now()}")
                         continue
                     elif data == 'f':
-                        self.status_report.set("Pump 6")
-                        self.data_list.append(data)
+                        self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 6")
+                        data_to_csv(f"Pump 6 at {datetime.now()}")
                         continue
                     elif data == 'g':
-                        self.status_report.set("Pump 7")
-                        self.data_list.append(data)
+                        self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 7")
+                        data_to_csv(f"Pump 7 at {datetime.now()}")
                         continue
                     elif data == 'h':
-                        self.status_report.set("Pump 8")
-                        self.data_list.append(data)
+                        self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 8")
+                        data_to_csv(f"Pump 8 at {datetime.now()}")
                         continue
                     elif data == 'i':
-                        self.status_report.set("Pump 9")
-                        self.data_list.append(data)
+                        self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 9")
+                        data_to_csv(f"Pump 9 at {datetime.now()}")
                         continue
                     elif data == 'j':
-                        self.status_report.set("Pump 10")
-                        self.data_list.append(data)
+                        self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 10")
+                        data_to_csv(f"Pump 10 at {datetime.now()}")
                         continue
                 except:
+                    # data_to_csv(f"Run Stopped at {datetime.now()}")
+                    self.reading = False
                     break
-            converted_data = dh.convert_data(self.data_list)
-            dh.data_to_csv(converted_data)
+            # try:
+            #     converted_data = dh.convert_data(self.data_list)
+            #     dh.data_to_csv(converted_data)
+            # except:
+            #     pass
         print_serial = threading.Thread(target=print_serial)
         print_serial.start()
 
@@ -152,25 +167,34 @@ class App:
             self.arduinoData.close()
             self.arduinoData.open()
             self.status_report.set("Run Complete")
-            dh.data_to_csv([f"Run finished at: {datetime.now()}"])
+            data_to_csv([f"Run finished at: {datetime.now()}"])
             os.rename("./data_report.csv",f"./data_report{datetime.now()}.csv")
             self.reading = False
-        self.t = threading.Timer(self.max_time, stop_data)
-        self.t.start()
+        self.run_timer = threading.Timer(self.max_time, stop_data)
+        self.run_timer.start()
 
     # STOP CYCLE
     def led_off(self):
         self.reading = False
-        self.t.cancel()
+        self.run_timer.cancel()
+        data_to_csv([f"Run stopped at: {datetime.now()}"])
+        os.rename("./data_report.csv",f"./data_report{datetime.now()}.csv")
         self.status_report.set('OFF')
         if self.arduinoData.isOpen() == True:
             self.arduinoData.close()
             self.arduinoData.open()
+
    
 root = tk.Tk()
 root.geometry('400x250')
 root.wm_title('Arduino Controller') 
 app = App(root)
+
+def stop():
+    # serial.Serial.close()
+    root.destroy()
+    sys.exit()
+root.protocol("WM_DELETE_WINDOW", stop)
 
 if __name__ == "__main__":
     root.mainloop()

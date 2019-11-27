@@ -1,9 +1,6 @@
 import csv
 from datetime import datetime
 from itertools import zip_longest
-# from main import start_time
-
-# sample_data = ['','a','a','a','a','a','a','','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','d','d','','','e','','','a','a','a','a','a','a','','','','b','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','','','e','','','','a','a','a','a','a','a','','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','d','d','','','e','','','a','a','a','a','a','a','','','','b','b','b','b','b','b','b','b','b','','','c','c','c','c','c','c','','','','d','d','d','d','d','d','','','e','','']
 
 def convert_data(data):
   converted_data = []
@@ -13,21 +10,12 @@ def convert_data(data):
   while ('' in data):
     data.remove('')
 
-  # for i in data: 
-  #   try:
-  #     if i != data[data.index(i)+1] and i != data[data.index(i)-1]:
-  #       data.remove(i)
-  #   except:
-  #     break
+  # def remove_consecutive_duplicates(lst):
+  #   ahead = iter(lst)
+  #   next(ahead)
+  #   return [ x for x, y in zip_longest(lst, ahead) if x and x != y ]
 
-  # data.remove(data[len(data)-1])
-
-  def remove_consecutive_duplicates(lst):
-    ahead = iter(lst)
-    next(ahead)
-    return [ x for x, y in zip_longest(lst, ahead) if x and x != y ]
-
-  data = remove_consecutive_duplicates(data)
+  # data = remove_consecutive_duplicates(data)
 
   # print(data)
 
@@ -76,9 +64,6 @@ def convert_data(data):
     elif i == 'j':
       converted_data.append(j)
       total_puff_count += 1
-  
-  # converted_data.append(f'Run finished at {datetime.now()}')
-  # converted_data.append(f'Total Puffs : {total_puff_count}')
 
   return converted_data
 
@@ -87,7 +72,7 @@ def convert_data(data):
 
 def data_to_csv(data):
   with open("./data_report.csv",'a') as f:
-    writer = csv.writer(f,delimiter=" ")
+    writer = csv.writer(f,delimiter=",")
     for i in data: 
       writer.writerow([i])
 

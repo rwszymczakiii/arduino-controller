@@ -20,6 +20,16 @@ String startCode;
 int MaxCycle;
 int PumpsUsed;
 int PuffDuration;
+bool signalSent1 = false;
+bool signalSent2 = false;
+bool signalSent3 = false;
+bool signalSent4 = false;
+bool signalSent5 = false;
+bool signalSent6 = false;
+bool signalSent7 = false;
+bool signalSent8 = false;
+bool signalSent9 = false;
+bool signalSent10 = false;
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
@@ -49,7 +59,7 @@ void loop() {
       PuffDuration = startCode.substring(6,startCode.length()).toInt();
       MaxTime = PumpsUsed * PuffDuration;
       CurrentPump = 0;
-      CurrentPin = 1;
+      CurrentPin = 0;
       elapsedMillis timeElapsed;
       
       while (MaxCycle > CurrentCycle) {
@@ -59,7 +69,10 @@ void loop() {
           CurrentPump = 1;
           CurrentPin = pvalve1Pin;
           digitalWrite(CurrentPin, HIGH); 
-          Serial.print('a');
+          if (signalSent1 != true) {
+            Serial.print('a');
+            signalSent1 = true;
+          }
         }
         // ------ Pump 2 -------------
         else if (timeElapsed > PuffDuration && timeElapsed < PuffDuration * 2 && CurrentPump < PumpsUsed) { 
@@ -68,7 +81,10 @@ void loop() {
           CurrentPin = pvalve2Pin;
           digitalWrite(CurrentPin, HIGH);
           digitalWrite(LastPin, LOW);    
-          Serial.print('b');
+          if (signalSent2 != true) {
+            Serial.print('b');
+            signalSent2 = true;
+          }
         }
         // ------ Pump 3 -------------
         else if (timeElapsed > PuffDuration * 2 && timeElapsed < PuffDuration * 3 && CurrentPump < PumpsUsed) {
@@ -77,7 +93,10 @@ void loop() {
           CurrentPin = pvalve3Pin;
           digitalWrite(CurrentPin, HIGH);
           digitalWrite(LastPin, LOW);
-          Serial.print('c');
+          if (signalSent3 != true) {
+            Serial.print('c');
+            signalSent3 = true;
+          }
         }
         // ------ Pump 4 -------------
         else if (timeElapsed > PuffDuration * 3 && timeElapsed < PuffDuration * 4 && CurrentPump < PumpsUsed) { 
@@ -86,7 +105,10 @@ void loop() {
           CurrentPin = pvalve4Pin;
           digitalWrite(CurrentPin, HIGH);
           digitalWrite(LastPin, LOW);
-          Serial.print('d');
+          if (signalSent4 != true) {
+            Serial.print('d');
+            signalSent4 = true;
+          }
         }
         // ------ Pump 5 -------------
         else if (timeElapsed > PuffDuration * 4 && timeElapsed < PuffDuration * 5 && CurrentPump < PumpsUsed) { 
@@ -95,7 +117,10 @@ void loop() {
           CurrentPin = pvalve5Pin;
           digitalWrite(CurrentPin, HIGH);
           digitalWrite(LastPin, LOW);
-          Serial.print('e');
+          if (signalSent5 != true) {
+            Serial.print('e');
+            signalSent5 = true;
+          }
         }
         // ------ Pump 6 -------------
         else if (timeElapsed > PuffDuration * 5 && timeElapsed < PuffDuration * 6 && CurrentPump < PumpsUsed) {
@@ -104,7 +129,10 @@ void loop() {
           CurrentPin = pvalve6Pin;
           digitalWrite(CurrentPin, HIGH);
           digitalWrite(LastPin, LOW);
-          Serial.print('f');
+          if (signalSent6 != true) {
+            Serial.print('f');
+            signalSent6 = true;
+          }
         }
         // ------ Pump 7 -------------
         else if (timeElapsed > PuffDuration * 6 && timeElapsed < PuffDuration * 7 && CurrentPump < PumpsUsed) { 
@@ -113,7 +141,10 @@ void loop() {
           CurrentPin = pvalve7Pin;
           digitalWrite(CurrentPin, HIGH);
           digitalWrite(LastPin, LOW);
-          Serial.print('g');
+          if (signalSent7 != true) {
+            Serial.print('g');
+            signalSent7 = true;
+          }
         }
         // ------ Pump 8 -------------
         else if (timeElapsed > PuffDuration * 7 && timeElapsed < PuffDuration * 8 && CurrentPump < PumpsUsed) { 
@@ -122,7 +153,10 @@ void loop() {
           CurrentPin = pvalve8Pin;
           digitalWrite(CurrentPin, HIGH);
           digitalWrite(LastPin, LOW);
-          Serial.print('h');
+          if (signalSent8 != true) {
+            Serial.print('h');
+            signalSent8 = true;
+          }
         }
         // ------ Pump 9 -------------
         else if (timeElapsed > PuffDuration * 8 && timeElapsed < PuffDuration * 9 && CurrentPump < PumpsUsed) {
@@ -131,7 +165,10 @@ void loop() {
           CurrentPin = pvalve9Pin;
           digitalWrite(CurrentPin, HIGH);
           digitalWrite(LastPin, LOW);
-          Serial.print('i');
+          if (signalSent9 != true) {
+            Serial.print('i');
+            signalSent9 = true;
+          }
         }
         // ------ Pump 10 -------------
         else if (timeElapsed > PuffDuration * 9 && timeElapsed < PuffDuration * 10 && CurrentPump < PumpsUsed) {
@@ -140,7 +177,10 @@ void loop() {
           CurrentPin = pvalve10Pin;
           digitalWrite(CurrentPin, HIGH);
           digitalWrite(LastPin, LOW);
-          Serial.print('j');
+          if (signalSent10 != true) {
+            Serial.print('j');
+            signalSent10 = true;
+          }
         }
         // ------ End Cycle -------------
         else if (timeElapsed >= MaxTime) {
@@ -154,7 +194,16 @@ void loop() {
           digitalWrite(pvalve8Pin, LOW);
           digitalWrite(pvalve9Pin, LOW);
           digitalWrite(pvalve10Pin, LOW);
-          Serial.print('k');
+          signalSent1 = false;
+          signalSent2 = false;
+          signalSent3 = false;
+          signalSent4 = false;
+          signalSent5 = false;
+          signalSent6 = false;
+          signalSent7 = false;
+          signalSent8 = false;
+          signalSent9 = false;
+          signalSent10 = false;
           CurrentCycle++;
           CurrentPump = 0;
           CurrentPin = 0;
@@ -165,4 +214,3 @@ void loop() {
     }
   }
 }
-  
