@@ -4,6 +4,8 @@ from tkinter import messagebox
 from time import sleep
 from datetime import datetime
 import threading
+import csv
+import os
 try: 
     import data_handler as dh
 except PermissionError:
@@ -25,6 +27,7 @@ class App:
         self.com_button.grid(row=1, columnspan=2)
         self.com_response = tk.StringVar()
         tk.Label(frame, textvariable=self.com_response).grid(row=2, columnspan=2)
+
         # VARS INPUT
         tk.Label(frame, text='CYCLES:         ').grid(row=3, column=0)
         self.cycles_var = tk.StringVar()
@@ -35,11 +38,13 @@ class App:
         tk.Label(frame, text='PUFF TIME (s): ').grid(row=5, column=0)
         self.time_var = tk.StringVar()
         tk.Entry(frame, textvariable=self.time_var).grid(row=5, column=1)
+
         # START/STOP
         self.on_button = tk.Button(frame, text='ON ', command=self.led_on)
         self.on_button.grid(row=6, column=0)
         self.off_button = tk.Button(frame, text='OFF', command=self.led_off)
         self.off_button.grid(row=6, column=1)
+        
         # STATUS
         self.status_report = tk.StringVar()
         tk.Label(frame, textvariable=self.status_report).grid(row=7, columnspan=2)
@@ -52,10 +57,13 @@ class App:
         self.arduinoData = serial.Serial(f'{self.com_port}', 9600, timeout=1)
         sleep(0.500)
         self.com_response.set('COM PORT has been set')
+
     # START CYCLE
     def led_on(self):
         if self.arduinoData.isOpen() == False:
             self.arduinoData.open()
+
+        #START CODE FOR ARDUINO    
         self.cycles_num = self.cycles_var.get()
         self.pumps_num = self.pumps_var.get()
         self.time_num = self.time_var.get()
@@ -77,69 +85,79 @@ class App:
         self.arduinoData.readline()
         self.arduinoData.readline()
         self.arduinoData.write(f"{self.start_code}$".encode())
+
+        #BEGIN LOG
         self.start_time = datetime.now()
+        with open("./data_report.csv",'w') as f:
+            writer = csv.writer(f,delimiter=" ")
+            writer.writerow([f"Run Started at: {self.start_time}"])
+
+        # COLLECT DATA
+        self.data_list = []
         def print_serial():
-            data_list = []
             while self.reading == True:
                 try:
                     data = self.arduinoData.read().decode('utf-8')
+                    # current = self.status_report.get()
                     if data == 'a':
                         self.status_report.set("Pump 1")
-                        data_list.append(data)
+                        self.data_list.append(data)
                         continue
                     elif data == 'b':
                         self.status_report.set("Pump 2")
-                        data_list.append(data)
+                        self.data_list.append(data)
                         continue
                     elif data == 'c':
                         self.status_report.set("Pump 3")
-                        data_list.append(data)
+                        self.data_list.append(data)
                         continue
                     elif data == 'd':
                         self.status_report.set("Pump 4")
-                        data_list.append(data)
+                        self.data_list.append(data)
                         continue
                     elif data == 'e':
                         self.status_report.set("Pump 5")
-                        data_list.append(data)
+                        self.data_list.append(data)
                         continue
                     elif data == 'f':
                         self.status_report.set("Pump 6")
-                        data_list.append(data)
+                        self.data_list.append(data)
                         continue
                     elif data == 'g':
                         self.status_report.set("Pump 7")
-                        data_list.append(data)
+                        self.data_list.append(data)
                         continue
                     elif data == 'h':
                         self.status_report.set("Pump 8")
-                        data_list.append(data)
+                        self.data_list.append(data)
                         continue
                     elif data == 'i':
                         self.status_report.set("Pump 9")
-                        data_list.append(data)
+                        self.data_list.append(data)
                         continue
                     elif data == 'j':
                         self.status_report.set("Pump 10")
-                        data_list.append(data)
+                        self.data_list.append(data)
                         continue
-                    converted_data = dh.convert_data(data_list)
-                    dh.data_to_csv(converted_data)
                 except:
                     break
-        if self.arduinoData.isOpen() == False:
-            self.reading = False
-            self.status_report.set('serial port closed unexpectedly')
+            converted_data = dh.convert_data(self.data_list)
+            dh.data_to_csv(converted_data)
         print_serial = threading.Thread(target=print_serial)
         print_serial.start()
-        self.max_time = int(self.cycles_num)*int(self.pumps_num)*int(self.time_num)+2
+
+        #TIMER TO END RUN
+        self.max_time = int(self.cycles_num)*int(self.pumps_num)*int(self.time_num)+3
         def stop_data():
             self.arduinoData.close()
             self.arduinoData.open()
             self.status_report.set("Run Complete")
+            dh.data_to_csv([f"Run finished at: {datetime.now()}"])
+            os.rename("./data_report.csv",f"./data_report{datetime.now()}.csv")
             self.reading = False
         self.t = threading.Timer(self.max_time, stop_data)
         self.t.start()
+
     # STOP CYCLE
     def led_off(self):
         self.reading = False
@@ -151,6 +169,8 @@ class App:
    
 root = tk.Tk()
 root.geometry('400x250')
-root.wm_title('Arduino Controller')  
+root.wm_title('Arduino Controller') 
 app = App(root)
-root.mainloop()
+
+if __name__ == "__main__":
+    root.mainloop()

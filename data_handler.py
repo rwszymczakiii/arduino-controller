@@ -45,7 +45,7 @@ def convert_data(data):
   for i in data: 
     if i == 'a':
       cycle_count += 1
-      a2 = f'--- Cycle # : {cycle_count}    at {datetime.now()} --- '
+      a2 = f'--- Cycle # : {cycle_count}'
       converted_data.append(a2)
       converted_data.append(a)
       total_puff_count += 1
@@ -77,8 +77,8 @@ def convert_data(data):
       converted_data.append(j)
       total_puff_count += 1
   
-  converted_data.append(f'Run finished at {datetime.now()}')
-  converted_data.append(f'Total Puffs : {total_puff_count}')
+  # converted_data.append(f'Run finished at {datetime.now()}')
+  # converted_data.append(f'Total Puffs : {total_puff_count}')
 
   return converted_data
 
@@ -86,7 +86,7 @@ def convert_data(data):
 # converted_data = convert_data(sample_data)
 
 def data_to_csv(data):
-  with open("./data_report.csv",'w') as f:
+  with open("./data_report.csv",'a') as f:
     writer = csv.writer(f,delimiter=" ")
     for i in data: 
       writer.writerow([i])
