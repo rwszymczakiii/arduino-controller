@@ -224,6 +224,17 @@ imported by:
 </div>
 
 <div class="node">
+  <a name="'System.IO'"></a>
+  <a target="code" href="" type="text/plain"><tt>'System.IO'</tt></a>
+<span class="moduletype">MissingModule</span>  <div class="import">
+imported by:
+    <a href="#serial.serialcli">serial.serialcli</a>
+
+  </div>
+
+</div>
+
+<div class="node">
   <a name="'java.lang'"></a>
   <a target="code" href="" type="text/plain"><tt>'java.lang'</tt></a>
 <span class="moduletype">MissingModule</span>  <div class="import">
@@ -253,6 +264,17 @@ imported by:
 imported by:
     <a href="#copy">copy</a>
  &#8226;   <a href="#xml.sax">xml.sax</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="System"></a>
+  <a target="code" href="" type="text/plain"><tt>System</tt></a>
+<span class="moduletype">MissingModule</span>  <div class="import">
+imported by:
+    <a href="#serial.serialcli">serial.serialcli</a>
 
   </div>
 
@@ -1211,6 +1233,8 @@ imported by:
     <a href="#multiprocessing.dummy">multiprocessing.dummy</a>
  &#8226;   <a href="#multiprocessing.managers">multiprocessing.managers</a>
  &#8226;   <a href="#multiprocessing.reduction">multiprocessing.reduction</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
+ &#8226;   <a href="#serial.serialutil">serial.serialutil</a>
 
   </div>
 
@@ -2812,7 +2836,10 @@ imports:
   <div class="import">
 imported by:
     <a href="#ctypes._endian">ctypes._endian</a>
+ &#8226;   <a href="#ctypes.wintypes">ctypes.wintypes</a>
  &#8226;   <a href="#multiprocessing.sharedctypes">multiprocessing.sharedctypes</a>
+ &#8226;   <a href="#serial.serialwin32">serial.serialwin32</a>
+ &#8226;   <a href="#serial.win32">serial.win32</a>
 
   </div>
 
@@ -2830,6 +2857,22 @@ imports:
   <div class="import">
 imported by:
     <a href="#ctypes">ctypes</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="ctypes.wintypes"></a>
+  <a target="code" href="///C:/users/mcrodgers/appdata/local/programs/python/python38/lib/ctypes/wintypes.py" type="text/plain"><tt>ctypes.wintypes</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#ctypes">ctypes</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#serial.win32">serial.win32</a>
 
   </div>
 
@@ -5990,12 +6033,24 @@ imported by:
  &#8226;   <a href="#multiprocessing.queues">multiprocessing.queues</a>
  &#8226;   <a href="#multiprocessing.shared_memory">multiprocessing.shared_memory</a>
  &#8226;   <a href="#pathlib">pathlib</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
  &#8226;   <a href="#shutil">shutil</a>
  &#8226;   <a href="#socket">socket</a>
  &#8226;   <a href="#ssl">ssl</a>
  &#8226;   <a href="#subprocess">subprocess</a>
  &#8226;   <a href="#tempfile">tempfile</a>
  &#8226;   <a href="#xmlrpc.client">xmlrpc.client</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="fcntl"></a>
+  <a target="code" href="" type="text/plain"><tt>fcntl</tt></a>
+<span class="moduletype">MissingModule</span>  <div class="import">
+imported by:
+    <a href="#serial.serialposix">serial.serialposix</a>
 
   </div>
 
@@ -6514,6 +6569,7 @@ imported by:
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#pkgutil">pkgutil</a>
+ &#8226;   <a href="#serial">serial</a>
 
   </div>
 
@@ -6765,6 +6821,7 @@ imported by:
  &#8226;   <a href="#puff_machine.py">puff_machine.py</a>
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#quopri">quopri</a>
+ &#8226;   <a href="#serial.serialutil">serial.serialutil</a>
  &#8226;   <a href="#shlex">shlex</a>
  &#8226;   <a href="#socket">socket</a>
  &#8226;   <a href="#socketserver">socketserver</a>
@@ -8082,6 +8139,8 @@ imported by:
  &#8226;   <a href="#pyi_rth_multiprocessing.py">pyi_rth_multiprocessing.py</a>
  &#8226;   <a href="#random">random</a>
  &#8226;   <a href="#secrets">secrets</a>
+ &#8226;   <a href="#serial">serial</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
  &#8226;   <a href="#shlex">shlex</a>
  &#8226;   <a href="#shutil">shutil</a>
  &#8226;   <a href="#socket">socket</a>
@@ -8724,6 +8783,7 @@ imported by:
     <a href="#http.server">http.server</a>
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#selectors">selectors</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
  &#8226;   <a href="#subprocess">subprocess</a>
 
   </div>
@@ -8759,10 +8819,154 @@ imported by:
 
 <div class="node">
   <a name="serial"></a>
-  <a target="code" href="" type="text/plain"><tt>serial</tt></a>
-<span class="moduletype">MissingModule</span>  <div class="import">
+  <a target="code" href="///C:/users/mcrodgers/appdata/local/programs/python/python38/lib/site-packages/serial/__init__.py" type="text/plain"><tt>serial</tt></a>
+<span class="moduletype">Package</span>  <div class="import">
+imports:
+    <a href="#importlib">importlib</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#serial.serialcli">serial.serialcli</a>
+ &#8226;   <a href="#serial.serialjava">serial.serialjava</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
+ &#8226;   <a href="#serial.serialutil">serial.serialutil</a>
+ &#8226;   <a href="#serial.serialwin32">serial.serialwin32</a>
+ &#8226;   <a href="#serial.win32">serial.win32</a>
+ &#8226;   <a href="#sys">sys</a>
+
+  </div>
+  <div class="import">
 imported by:
     <a href="#puff_machine.py">puff_machine.py</a>
+ &#8226;   <a href="#serial.serialcli">serial.serialcli</a>
+ &#8226;   <a href="#serial.serialjava">serial.serialjava</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
+ &#8226;   <a href="#serial.serialutil">serial.serialutil</a>
+ &#8226;   <a href="#serial.serialwin32">serial.serialwin32</a>
+ &#8226;   <a href="#serial.win32">serial.win32</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="serial.serialcli"></a>
+  <a target="code" href="///C:/users/mcrodgers/appdata/local/programs/python/python38/lib/site-packages/serial/serialcli.py" type="text/plain"><tt>serial.serialcli</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#'System.IO'">'System.IO'</a>
+ &#8226;   <a href="#System">System</a>
+ &#8226;   <a href="#serial">serial</a>
+ &#8226;   <a href="#serial.serialutil">serial.serialutil</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#serial">serial</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="serial.serialjava"></a>
+  <a target="code" href="///C:/users/mcrodgers/appdata/local/programs/python/python38/lib/site-packages/serial/serialjava.py" type="text/plain"><tt>serial.serialjava</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#serial">serial</a>
+ &#8226;   <a href="#serial.serialutil">serial.serialutil</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#serial">serial</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="serial.serialposix"></a>
+  <a target="code" href="///C:/users/mcrodgers/appdata/local/programs/python/python38/lib/site-packages/serial/serialposix.py" type="text/plain"><tt>serial.serialposix</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#array">array</a>
+ &#8226;   <a href="#errno">errno</a>
+ &#8226;   <a href="#fcntl">fcntl</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#select">select</a>
+ &#8226;   <a href="#serial">serial</a>
+ &#8226;   <a href="#serial.serialutil">serial.serialutil</a>
+ &#8226;   <a href="#struct">struct</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#termios">termios</a>
+ &#8226;   <a href="#warnings">warnings</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#serial">serial</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="serial.serialutil"></a>
+  <a target="code" href="///C:/users/mcrodgers/appdata/local/programs/python/python38/lib/site-packages/serial/serialutil.py" type="text/plain"><tt>serial.serialutil</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#array">array</a>
+ &#8226;   <a href="#io">io</a>
+ &#8226;   <a href="#serial">serial</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#time">time</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#serial">serial</a>
+ &#8226;   <a href="#serial.serialcli">serial.serialcli</a>
+ &#8226;   <a href="#serial.serialjava">serial.serialjava</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
+ &#8226;   <a href="#serial.serialwin32">serial.serialwin32</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="serial.serialwin32"></a>
+  <a target="code" href="///C:/users/mcrodgers/appdata/local/programs/python/python38/lib/site-packages/serial/serialwin32.py" type="text/plain"><tt>serial.serialwin32</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#ctypes">ctypes</a>
+ &#8226;   <a href="#serial">serial</a>
+ &#8226;   <a href="#serial.serialutil">serial.serialutil</a>
+ &#8226;   <a href="#serial.win32">serial.win32</a>
+ &#8226;   <a href="#time">time</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#serial">serial</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="serial.win32"></a>
+  <a target="code" href="///C:/users/mcrodgers/appdata/local/programs/python/python38/lib/site-packages/serial/win32.py" type="text/plain"><tt>serial.win32</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#ctypes">ctypes</a>
+ &#8226;   <a href="#ctypes.wintypes">ctypes.wintypes</a>
+ &#8226;   <a href="#serial">serial</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#serial">serial</a>
+ &#8226;   <a href="#serial.serialwin32">serial.serialwin32</a>
 
   </div>
 
@@ -9100,6 +9304,7 @@ imported by:
  &#8226;   <a href="#pickle">pickle</a>
  &#8226;   <a href="#platform">platform</a>
  &#8226;   <a href="#plistlib">plistlib</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
  &#8226;   <a href="#tarfile">tarfile</a>
  &#8226;   <a href="#zipfile">zipfile</a>
 
@@ -9239,6 +9444,9 @@ imported by:
  &#8226;   <a href="#quopri">quopri</a>
  &#8226;   <a href="#runpy">runpy</a>
  &#8226;   <a href="#selectors">selectors</a>
+ &#8226;   <a href="#serial">serial</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
+ &#8226;   <a href="#serial.serialutil">serial.serialutil</a>
  &#8226;   <a href="#shlex">shlex</a>
  &#8226;   <a href="#shutil">shutil</a>
  &#8226;   <a href="#socket">socket</a>
@@ -9350,6 +9558,7 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#getpass">getpass</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
  &#8226;   <a href="#tty">tty</a>
 
   </div>
@@ -9462,6 +9671,8 @@ imported by:
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#queue">queue</a>
  &#8226;   <a href="#random">random</a>
+ &#8226;   <a href="#serial.serialutil">serial.serialutil</a>
+ &#8226;   <a href="#serial.serialwin32">serial.serialwin32</a>
  &#8226;   <a href="#socketserver">socketserver</a>
  &#8226;   <a href="#ssl">ssl</a>
  &#8226;   <a href="#subprocess">subprocess</a>
@@ -10219,6 +10430,7 @@ imported by:
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#random">random</a>
  &#8226;   <a href="#runpy">runpy</a>
+ &#8226;   <a href="#serial.serialposix">serial.serialposix</a>
  &#8226;   <a href="#sre_parse">sre_parse</a>
  &#8226;   <a href="#ssl">ssl</a>
  &#8226;   <a href="#subprocess">subprocess</a>
