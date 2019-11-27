@@ -110,44 +110,44 @@ class App:
                     if data == 'a':
                         self.cycle_count += 1
                         self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 1")
-                        data_to_csv(f"--- Cycle # : {self.cycle_count} at {datetime.now()}" )
-                        data_to_csv(f"Pump 1 at {datetime.now()}")
+                        data_to_csv([f"--- Cycle # : {self.cycle_count} at {datetime.now()}"])
+                        data_to_csv([f"Pump 1 at {datetime.now()}"])
                         continue
                     elif data == 'b':
                         self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 2")
-                        data_to_csv(f"Pump 2 at {datetime.now()}")
+                        data_to_csv([f"Pump 2 at {datetime.now()}"])
                         continue
                     elif data == 'c':
                         self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 3")
-                        data_to_csv(f"Pump 3 at {datetime.now()}")
+                        data_to_csv([f"Pump 3 at {datetime.now()}"])
                         continue
                     elif data == 'd':
                         self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 4")
-                        data_to_csv(f"Pump 4 at {datetime.now()}")
+                        data_to_csv([f"Pump 4 at {datetime.now()}"])
                         continue
                     elif data == 'e':
                         self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 5")
-                        data_to_csv(f"Pump 5 at {datetime.now()}")
+                        data_to_csv([f"Pump 5 at {datetime.now()}"])
                         continue
                     elif data == 'f':
                         self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 6")
-                        data_to_csv(f"Pump 6 at {datetime.now()}")
+                        data_to_csv([f"Pump 6 at {datetime.now()}"])
                         continue
                     elif data == 'g':
                         self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 7")
-                        data_to_csv(f"Pump 7 at {datetime.now()}")
+                        data_to_csv([f"Pump 7 at {datetime.now()}"])
                         continue
                     elif data == 'h':
                         self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 8")
-                        data_to_csv(f"Pump 8 at {datetime.now()}")
+                        data_to_csv([f"Pump 8 at {datetime.now()}"])
                         continue
                     elif data == 'i':
                         self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 9")
-                        data_to_csv(f"Pump 9 at {datetime.now()}")
+                        data_to_csv([f"Pump 9 at {datetime.now()}"])
                         continue
                     elif data == 'j':
                         self.status_report.set(f"Cycle: {self.cycle_count}    Pump: 10")
-                        data_to_csv(f"Pump 10 at {datetime.now()}")
+                        data_to_csv([f"Pump 10 at {datetime.now()}"])
                         continue
                 except:
                     # data_to_csv(f"Run Stopped at {datetime.now()}")
@@ -198,3 +198,10 @@ root.protocol("WM_DELETE_WINDOW", stop)
 
 if __name__ == "__main__":
     root.mainloop()
+
+# def remove_consecutive_duplicates(lst):
+#   ahead = iter(lst)
+#   next(ahead)
+#   return [ x for x, y in zip_longest(lst, ahead) if x and x != y ]
+
+# data = remove_consecutive_duplicates(data)
